@@ -1,6 +1,15 @@
-from pydantic.v1 import BaseSettings
+from pydantic import SecretStr
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    pass
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
+
+    IMAP_HOST: str
+    IMAP_USERNAME: SecretStr
+    IMAP_PASSWORD: SecretStr
 
 settings = Settings()
